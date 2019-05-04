@@ -13,9 +13,11 @@ var moment = require("moment");
 //making the request for the fs
 var fs = require("fs");
 // takes in the command 
-var command = process.argv[2];
+var input = process.argv[2];
 //if statement to know when there is a concert
-if (command === "concert-this") {
+
+//telling me venue is undefined :(
+if (input === "concert-this") {
 
   var artist = process.argv[3];
 
@@ -28,7 +30,7 @@ if (command === "concert-this") {
       console.log("--------------------");
     }
   });
-} else if (command === "spotify-this-song") {
+} else if (input === "spotify-this-song") {
 
   var song = process.argv[3];
 
@@ -53,7 +55,7 @@ if (command === "concert-this") {
     console.log("---------------------");
   });
 
-} else if (command === "movie-this") {
+} else if (input === "movie-this") {
 
   var movie = process.argv[3];
 
@@ -77,7 +79,8 @@ if (command === "concert-this") {
       console.log("---------------------");
     }
   });
-} else if (command === "do-what-it-says") {
+  //Grab text from random txt file
+} else if (input === "do-what-it-says") {
 
   fs.readFile("random.txt", "utf8", function (error, data) {
 
@@ -89,12 +92,13 @@ if (command === "concert-this") {
     var dataArr = data.split(",");
     console.log(dataArr);
 
-    command = dataArr[0];
-    whatToCommand = dataArr[1];
+    input = dataArr[0];
+    whatToInput = dataArr[1];
 
-    if (command === "concert-this") {
+    //saying venue is undefined :( whhhyyy?
+    if (input === "concert-this") {
 
-      var artist = whatToCommand;
+      var artist = whatToInput;
 
       request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
 
@@ -108,8 +112,8 @@ if (command === "concert-this") {
       });
 
       // If we want a song
-    } else if (command === "spotify-this-song") {
-      var song = whatToCommand;
+    } else if (input === "spotify-this-song") {
+      var song = whatToInput;
 
       if (song === undefined) {
         song = "The Sign";
@@ -127,9 +131,9 @@ if (command === "concert-this") {
 
 
       // If we want a movie
-    } else if (command === "movie-this") {
+    } else if (input === "movie-this") {
 
-      var movie = whatToCommand;
+      var movie = whatToInput;
 
       if (movie === undefined) {
         movie = "Mr. Nobody";
@@ -154,19 +158,19 @@ if (command === "concert-this") {
       });
 
 
-      // If command not entered or incorrectly catch the error
+      // If input not entered catch the error
     } else {
-      console.log("Command Error");
+      console.log("Error");
     }
 
     console.log("--------------------");
-    console.log("Command: ", command);
+    console.log("Input: ", input);
     console.log("--------------------");
   });
 
 
 } else {
-  console.log("Command Error");
+  console.log("Error");
 }
 
 

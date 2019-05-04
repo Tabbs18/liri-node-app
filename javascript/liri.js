@@ -21,8 +21,9 @@ if (input === "concert-this") {
 
   var artist = process.argv[3];
 
-  request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
-    if (!error && response.statusCode === 200) {
+//statusCode catches errors and assures the https request method excecutes if not catch error
+  request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, body) {
+    if (!error) {
       console.log("--------------------");
       console.log("Venue: " + JSON.parse(body)[0].venue.name);
       console.log("Location: " + JSON.parse(body)[0].venue.city + " " + JSON.parse(body)[0].venue.region);
@@ -42,9 +43,9 @@ if (input === "concert-this") {
   spotify.search({
     type: "track",
     query: song
-  }, function (err, data) {
-    if (err) {
-      return console.log("Error: " + err);
+  }, function (error, data) {
+    if (error) {
+      return console.log("Error: " + error);
     }
     // console.log(data.tracks.items[0]);
     console.log("--------------------");
@@ -62,9 +63,9 @@ if (input === "concert-this") {
   if (movie === undefined) {
     movie = "Mr. Nobody";
   }
-  request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+  request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy", function (error, body) {
 
-    if (!error && response.statusCode === 200) {
+    if (!error) {
 
       //about the Movie
       console.log("---------------------");
@@ -95,14 +96,13 @@ if (input === "concert-this") {
     input = dataArr[0];
     whatToInput = dataArr[1];
 
-    //saying venue is undefined :( whhhyyy?
     if (input === "concert-this") {
 
       var artist = whatToInput;
 
-      request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
+      request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, body) {
 
-        if (!error && response.statusCode === 200) {
+        if (!error) {
           console.log("----------------------");
           console.log("Venue: " + JSON.parse(body)[0].venue.name);
           console.log("Location: " + JSON.parse(body)[0].venue.city + " " + JSON.parse(body)[0].venue.region);
@@ -139,9 +139,9 @@ if (input === "concert-this") {
         movie = "Mr. Nobody";
       }
 
-      request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+      request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy", function (error, body) {
 
-        if (!error && response.statusCode === 200) {
+        if (!error) {
 
           // Information about  the movie
           console.log("-------------------");
@@ -172,25 +172,6 @@ if (input === "concert-this") {
 } else {
   console.log("Error");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -16,12 +16,10 @@ var fs = require("fs");
 var input = process.argv[2];
 //if statement to know when there is a concert
 
-//telling me venue is undefined :(
 if (input === "concert-this") {
 
   var artist = process.argv[3];
 
-//statusCode catches errors and assures the https request method excecutes if not catch error
   request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, body) {
     if (!error) {
       console.log("--------------------");
